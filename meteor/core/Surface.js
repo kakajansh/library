@@ -34,10 +34,10 @@ define(function(require, exports, module) {
 
     // Clean up
     surface.cleanup = function(allocator) {
-        // Call super
-        Surface.prototype.cleanup.call(surface, allocator);
         // Remove template instance
         self.templateInstance && self.templateInstance.dom.remove();
+        // Call super
+        Surface.prototype.cleanup.call(surface, allocator);
     };
 
     // Return the modified surface

@@ -25,13 +25,13 @@ define(function(require, exports, module) {
     } else if (typeof options.data == 'object') {
         // "data" is a MiniMongo cursor.  TODO, instanceof cursor check.
         self.observeHandle = options.data.observe({
-          addedAt: function(document, atIndex, before) {
+          addedAt: function(doc, atIndex, before) {
             // Keep an reactive index
-            index[document._id] = new ReactiveEntity(document);
+            index[doc._id] = new ReactiveEntity(doc);
             // Add surface
             sequence.splice(atIndex, 0, new MeteorSurface({
                 template: options.template,
-                data: index[document._id].get(),
+                data: index[doc._id].get(),
                 size: options.size,
                 properties: options.properties
             }));            
@@ -49,7 +49,7 @@ define(function(require, exports, module) {
             console.log('Removed', item);
             // item.destroy(); ??
           },
-          movedTo: function(document, fromIndex, toIndex, before) {
+          movedTo: function(doc, fromIndex, toIndex, before) {
             var item = sequence.splice(fromIndex, 1)[0];
             sequence.splice(toIndex, 0, item);
           }
