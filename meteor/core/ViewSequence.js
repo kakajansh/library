@@ -1,15 +1,15 @@
 define(function(require, exports, module) {
+  // options data, template, size, properties
+  var _ViewSequence = require("famous/core/ViewSequence");
+  var MeteorSurface = require("library/meteor/core/Surface");
+  var ReactiveEntity = require("library/meteor/core/ReactiveEntity");
 
   var ViewSequence = function(options) {
     var self = this;
-    // options data, template, size, properties
-    var _ViewSequence = require("famous/core/ViewSequence");
-    var MeteorSurface = require("library/meteor/core/Surface");
-    var ReactiveEntity = require("library/meteor/core/ReactiveEntity");
     var index = {};
 
     // Create sequence
-    self.sequence = new _ViewSequence();
+    var sequence = new _ViewSequence();
 
     if (_.isArray(options.data)) {
         _.each(options.data, function(row) {
