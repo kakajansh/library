@@ -17,8 +17,13 @@ define(function(require, exports, module) {
         if (options.template) {
             // Create container
             surface.content = document.createElement('div');
-            // Create instance
-            self.templateInstance = UI.render(options.template);
+            if (options.data) {
+                // Create instance
+                self.templateInstance = UI.renderWithData(options.template, options.data);
+            } else {
+                // Create instance
+                self.templateInstance = UI.render(options.template);
+            }
             // Insert template into container
             UI.insert(self.templateInstance, surface.content);        
         }
