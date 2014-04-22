@@ -18,7 +18,8 @@ define(function(require, exports, module) {
                 template: options.template,
                 data: row,
                 size: options.size,
-                properties: options.properties
+                properties: options.properties,
+                classes: options.classes || []
             }));
 
         });        
