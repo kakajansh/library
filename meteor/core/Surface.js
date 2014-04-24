@@ -25,7 +25,7 @@ define(function(require, exports, module) {
                 self.templateInstance = UI.render(options.template);
             }
             // Insert template into container
-            UI.insert(self.templateInstance, surface.content);        
+            UI.insert(self.templateInstance, surface.content);
         }
 
         // Call super
