@@ -19,3 +19,5 @@ ViewSequence
         }
     }));
 ```
+
+Credit goes to @gadicc since I let me inspire of some of his code, Thanks!

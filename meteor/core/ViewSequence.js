@@ -1,3 +1,4 @@
+// Credit goes to @gadicc since I let me inspire of some of his code, Thanks! 
 define(function(require, exports, module) {
   // options data, template, size, properties
   var _ViewSequence = require("famous/core/ViewSequence");
