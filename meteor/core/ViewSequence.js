@@ -1,5 +1,5 @@
 // Credit goes to @gadicc since I let me inspire of some of his code, Thanks! 
-define('library/meteor/core/ViewSequence', ["famous/core/ViewSequence","library/meteor/core/Surface","library/meteor/core/ReactiveEntity"], function(require, exports, module) {
+define(function(require, exports, module) {
   // options data, template, size, properties
   var _ViewSequence = require("famous/core/ViewSequence");
   var MeteorSurface = require("library/meteor/core/Surface");
@@ -11,10 +11,10 @@ define('library/meteor/core/ViewSequence', ["famous/core/ViewSequence","library/
 
     // Create sequence
     var sequence = new _ViewSequence();
-    // sequence._.reindex
 
     if (_.isArray(options.data)) {
         _.each(options.data, function(row) {
+
             sequence.push(new MeteorSurface({
                 template: options.template,
                 data: row,
@@ -28,7 +28,9 @@ define('library/meteor/core/ViewSequence', ["famous/core/ViewSequence","library/
         // "data" is a MiniMongo cursor.  TODO, instanceof cursor check.
         self.observeHandle = options.data.observe({
           addedAt: function(doc, atIndex, before) {
+            // Keep an reactive index
             index[doc._id] = new ReactiveEntity(doc);
+            // Add surface
             sequence.splice(atIndex, 0, new MeteorSurface({
                 template: options.template,
                 data: index[doc._id].get(),
