@@ -17,7 +17,7 @@ define(function(require, exports, module) {
       options.direction = options.direction || 0;
 
       // Rig a scroll view
-      var scrollview = new ScrollView(options.direction);
+      var scrollview = new ScrollView(options);
 
       // Create from sequence
       scrollview.sequenceFrom(surfaces);
