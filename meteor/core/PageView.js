@@ -13,9 +13,6 @@ define(function(require, exports, module) {
       // We force paginated here...
       options.paginated = true;
 
-      // Allow direction to be set - but default to vertical
-      options.direction = options.direction || 0;
-
       // Rig a scroll view
       var scrollview = new ScrollView(options);
 
