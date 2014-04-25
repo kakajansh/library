@@ -1,5 +1,5 @@
 // Credit goes to @gadicc since I let me inspire of some of his code, Thanks! 
-define(function(require, exports, module) {
+define('library/meteor/core/ViewSequence', ["famous/core/ViewSequence","library/meteor/core/Surface","library/meteor/core/ReactiveEntity"], function(require, exports, module) {
   // options data, template, size, properties
   var _ViewSequence = require("famous/core/ViewSequence");
   var MeteorSurface = require("library/meteor/core/Surface");
@@ -11,10 +11,10 @@ define(function(require, exports, module) {
 
     // Create sequence
     var sequence = new _ViewSequence();
+    // sequence._.reindex
 
     if (_.isArray(options.data)) {
         _.each(options.data, function(row) {
-
             sequence.push(new MeteorSurface({
                 template: options.template,
                 data: row,
@@ -28,9 +28,7 @@ define(function(require, exports, module) {
         // "data" is a MiniMongo cursor.  TODO, instanceof cursor check.
         self.observeHandle = options.data.observe({
           addedAt: function(doc, atIndex, before) {
-            // Keep an reactive index
             index[doc._id] = new ReactiveEntity(doc);
-            // Add surface
             sequence.splice(atIndex, 0, new MeteorSurface({
                 template: options.template,
                 data: index[doc._id].get(),
@@ -39,7 +37,13 @@ define(function(require, exports, module) {
             }));            
           },
           changedAt: function(newDocument, oldDocument, atIndex) {
-            index[newDocument._id].set(newDocument);
+            sequence._.setValue(atIndex, new MeteorSurface({
+                template: options.template,
+                data: newDocument,
+                size: options.size,
+                properties: options.properties
+              }) 
+            )
           },
           removedAt: function(oldDocument, atIndex) {
             // Remove item
@@ -52,7 +56,7 @@ define(function(require, exports, module) {
             // item.destroy(); ??
           },
           movedTo: function(doc, fromIndex, toIndex, before) {
-            var item = sequence.splice(fromIndex, 1)[0];
+            var item = sequence._.array.splice(fromIndex, 1)[0];
             sequence.splice(toIndex, 0, item);
           }
         });
